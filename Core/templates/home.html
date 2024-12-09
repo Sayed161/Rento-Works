@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rento Work - Book a Space</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+{% load static %}
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&family=Cormorant:ital,wght@0,300..700;1,300..700&family=Inter:wght@100..900&family=Pinyon+Script&family=Playwrite+CA:wght@100..400&family=Radley:ital@0;1&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+ <style>
+     
+body, h1, h2, p, a, button, input, select {
+  margin: 0;
+  padding: 0;
+  font-family: "Radley", serif;
+  font-optical-sizing: auto;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.6;
+  background-color: #f9f9f9;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar .logo {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.navbar nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+
+.join-btn {
+  font-size: 17px;
+  margin-left: 10px;
+  padding: 8px 15px;
+  border: 1px solid #0c18f8;
+  background-color: transparent;
+  color: #0c18f8;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-btn {
+  font-size: 17px;
+  margin-left: 10px;
+  padding: 8px 15px;
+  border: 1px solid #000000;
+  background-color: transparent;
+  color: #000000;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info .location {
+  margin-right: 20px;
+}
+
+.user-info .wifi {
+  padding: 8px 20px;
+  background-color: transparent;
+  border: 2px solid #0070ff;
+  color: #0070ff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+main {
+  padding: 40px;
+}
+
+.space-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.space-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  width: 30%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+}
+
+.space-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.space-info {
+  padding: 20px;
+}
+
+.space-info h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.space-info p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.space-info ul {
+  list-style-type: none;
+  margin-bottom: 20px;
+}
+
+.space-info ul li {
+  font-size: 14px;
+  color: #555;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #0070ff;
+  margin-bottom: 20px;
+}
+
+.book-now {
+  padding: 10px 20px;
+  background-color: #0070ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.book-now:hover {
+  background-color: #005bb5;
+}
+
+
+
+.flexible-solutions {
+  text-align: center;
+  padding: 40px 20px;
+  background: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.flexible-solutions button{
+  font-size: 17px;
+  margin-left: 10px;
+  padding: 8px 15px;
+  border: 1px solid #0c18f8;
+  background-color: transparent;
+  color: #0c18f8;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.flexible-solutions h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.solutions-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+
+.solution {
+  width: 22%;
+  background: #f9f9f9;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.solution:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.solution .img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.solution .content {
+  padding: 20px;
+  text-align: left;
+}
+
+.solution .content h1 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0 0 10px;
+  color: #000;
+}
+
+.solution .content p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #555;
+  margin-bottom: 15px;
+}
+.flexible-work-solutions {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+.solution-item {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.solution-item.reverse {
+  flex-direction: row-reverse;
+}
+
+.solution-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-container img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  object-fit: cover;
+}
+
+.form-container {
+  padding: 40px;
+  flex: 1;
+}
+
+.form-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-container p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.workspace-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  gap: 20px;
+}
+
+
+
+
+
+
+.form-group input,
+.form-group select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.phone-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.country-code {
+  font-size: 1.2rem;
+}
+
+.people-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.people-input label {
+  font-size: 1rem;
+  color: #555;
+}
+
+.form-note {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.form-note a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 50px auto;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.form-note a:hover {
+  text-decoration: underline;
+}
+
+.submit-button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #0000ff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #0000cc;
+}
+.solution-content {
+  max-width: 500px;
+}
+
+.solution-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #000;
+}
+
+.solution-content p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.learn-more {
+  font-size: 1rem;
+  color: #0000ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.learn-more:hover {
+  text-decoration: underline;
+}
+
+
+
+.view-all {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+footer {
+  background-color: #e5e3e3;
+  color: #333;
+  padding: 40px 20px;
+}
+
+.footer-container {
+  margin: 10px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer-columns {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-column h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 8px;
+}
+
+.footer-column ul li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+  text-decoration: underline;
+}
+
+.footer-column select {
+  padding: 5px;
+  width: 100%;
+}
+
+.footer-contact {
+  font-size: 14px;
+}
+
+.footer-contact a {
+  color: blue;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  text-decoration: underline;
+}
+.highlight {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.highlight img {
+  width: 50%;
+  border-radius: 8px;
+}
+
+.highlight-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.highlight-content h3 {
+  font-size: 0.9rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-content h4 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.highlight-content p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.highlight-content a {
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: bold;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.grid article {
+  text-align: center;
+}
+
+.grid article img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.grid article h5 {
+  font-size: 0.9rem;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.grid article h4 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.footer-social a {
+  margin: 0 10px;
+}
+.hightlight-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.footer-social img {
+  width: 24px;
+  height: 24px;
+}
+
+.footer-legal {
+  font-size: 12px;
+}
+
+.footer-legal p {
+  margin-bottom: 10px;
+}
+
+.footer-legal ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.footer-legal ul li a {
+  color: blue;
+  text-decoration: none;
+}
+
+.footer-legal ul li a:hover {
+  text-decoration: underline;
+}
+ </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+  
+    <div class="navbar">
+      <div class="logo">Rento Work</div>
+      <nav>
+        <a href="#">Find a Location</a>
+        <a href="#">Solutions</a>
+        <a href="#">Enterprise</a>
+      </nav>
+      <div class="actions">
+        {% if user.is_authenticated %}
+            <span class="username">{{ user.email }}</span>
+        {% else %}
+            <a href="{% url 'signup' %}" class="join-btn">
+                Join Now
+            </a>
+            <a href="{% url 'login' %}" class="login-btn">
+                Member Log In
+            </a>
+        {% endif %}
+    </div>
+    
+    
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="space-options">
+      <div class="space-card">
+        <img src="../static/images/pexels-artempodrez-8519258.jpg" alt="Dedicated Executive Desk" />
+        <div class="space-info">
+          <h3>Dedicated Executive Room</h3>
+          <p>Access to a dedicated executive rooms for 1–20 persons available around-the-clock. Includes access to business support services.</p>
+          <ul>
+            <li>Use of a dedicated Innovation Director</li>
+            <li>Parking and reception support</li>
+            <li>Complete service package</li>
+          </ul>
+          <p class="price">Prices starting from 20,000/- p/m</p>
+          <a href="{% url 'room' %}">
+            <button class="book-now">Book Now</button>
+          </a>
+        </div>
+      </div>
+
+      <div class="space-card">
+        <img src="../static/images/pexels-kampus-8353778.jpg" alt="Shared Hot Desk Office Space" />
+        <div class="space-info">
+          <h3>Shared Hot Desk Office Space</h3>
+          <p>24-hour access, business support, and discounts on conference rooms. Shared hot desk offices are located in socially isolating communal spaces.</p>
+          <ul>
+            <li>Dedicated shared hot desk</li>
+            <li>Lockable storage</li>
+            <li>Networking opportunities</li>
+            <li>Ease of scalability to requirements</li>
+          </ul>
+          <p class="price">Prices starting from 11,000/- p/m</p>
+        
+          <a href="{% url 'office' %}">
+            <button class="book-now">Book Now</button>
+          </a>
+        </div>
+      </div>
+
+      <div class="space-card">
+        <img src="../static/images/pexels-midtrack-10885309.jpg" alt="Hot Desk or Shared Desk" />
+        <div class="space-info">
+          <h3>Hot Desk or Shared Desk</h3>
+          <p>Hot desk, reception services, and discounts on shared desks are all included. Our hot desk services are flexible.</p>
+          <ul>
+            <li>Hot desk and shared desk services</li>
+            <li>Reception services</li>
+            <li>5 hours of shared desk room</li>
+            <li>Usage each month is offered</li>
+          </ul>
+          <p class="price">Prices starting from 15,000/- p/m</p>
+        
+          <a href="{% url 'desk' %}">
+            <button class="book-now">Book Now</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="flexible-solutions">
+    <h2>Explore our flexible solutions</h2>
+    <div class="solutions-grid">
+      <div class="solution">
+        <div class="img">
+            <img src="../static/images/pexels-heyho-6899395.jpg" alt="">
+        </div>
+        <div class="content">
+            <h1>
+                Private Office
+            </h1>
+            <p>
+                Settle into a fully-furnished office with access to professional amenities and meeting rooms—plus optional add-ons.
+            </p>
+            <button>
+Learn more
+            </button>
+        </div>
+      </div>
+      <div class="solution">
+        <div class="img">
+            <img src="../static/images/pexels-kampus-8353778.jpg" alt="">
+        </div>
+        <div class="content">
+            <h1>
+                Private Office
+            </h1>
+            <p>
+                Settle into a fully-furnished office with access to professional amenities and meeting rooms—plus optional add-ons.
+            </p>
+            <button>
+Learn more
+            </button>
+        </div>
+      </div>
+      <div class="solution">
+        <div class="img">
+            <img src="../static/images/pexels-mikhail-nilov-8871894.jpg" alt="">
+        </div>
+        <div class="content">
+            <h1>
+                Private Office
+            </h1>
+            <p>
+                Settle into a fully-furnished office with access to professional amenities and meeting rooms—plus optional add-ons.
+            </p>
+            <button>
+Learn more
+            </button>
+        </div>
+      </div>
+      <div class="solution">
+        <div class="img">
+            <img src="../static/images/pexels-midtrack-10885309.jpg" alt="">
+        </div>
+        <div class="content">
+            <h1>
+                Private Office
+            </h1>
+            <p>
+                Settle into a fully-furnished office with access to professional amenities and meeting rooms—plus optional add-ons.
+            </p>
+            <button>
+Learn more
+            </button>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="view-all">View all solutions →</a>
+  </section>
+  <section class="flexible-work-solutions">
+    <div class="solution-item">
+      <div class="solution-image">
+        <img src="../static/images/pexels-kindelmedia-6774141.jpg" alt="Workspace image 1">
+      </div>
+      <div class="solution-content">
+        <h2>Workspace made simple</h2>
+        <p>
+          Whatever your budget or need, we make finding the perfect workspace easy. 
+          From flexible memberships to move-in ready offices, we give you the space 
+          and solutions to do your best work.
+        </p>
+        <a href="#" class="learn-more">Learn more →</a>
+      </div>
+    </div>
+    <div class="solution-item reverse">
+      <div class="solution-content">
+        <h2>Enterprise-grade solutions to power your hybrid strategy</h2>
+        <p>
+          Give your real estate portfolio more flexibility while saving on costs 
+          by combining our turnkey offices, coworking spaces, and space management technology.
+        </p>
+        <a href="#" class="learn-more">Learn more →</a>
+      </div>
+      <div class="solution-image">
+        <img src="../static/images/pexels-marcus-80608062-18033178.jpg" alt="Workspace image 2">
+      </div>
+    </div>
+  </section>
+
+  <section class="workspace-solution">
+    <div class="container">
+      <div class="image-container">
+        <img src="../static/images/pexels-ryanpilat1-8606302.jpg" alt="Workspace">
+      </div>
+      <div class="form-container">
+        <h2>Let us find a solution that works for you</h2>
+        <p>
+          Complete the form below and our team will reach out to learn more about your workspace needs.
+        </p>
+        <form action="#" method="POST" class="workspace-form">
+          <div class="form-group">
+            <input type="text" name="full_name" placeholder="Full name *" required>
+            <input type="email" name="email_address" placeholder="Email address *" required>
+          </div>
+          <div class="form-group">
+            <input type="text" name="company_name" placeholder="Company name *" required>
+            <div class="phone-input">
+              <span class="country-code">🇧🇩</span>
+              <input type="tel" name="phone_number" placeholder="Phone number *" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <select name="workspace_location" required>
+              <option value="" disabled selected>Find workspace in *</option>
+              <option value="ncr-delhi">NCR Delhi</option>
+              <option value="mumbai">Mumbai</option>
+              <option value="bangalore">Bangalore</option>
+            </select>
+            <div class="people-input">
+              <label>For how many people? *</label>
+              <input type="number" name="people_count" min="1" value="1" required>
+            </div>
+          </div>
+          <p class="form-note">
+            By clicking the button below, you agree to our 
+            <a href="#">Terms of Service</a> and acknowledge our 
+            <a href="#">Global Privacy Policy</a>.
+          </p>
+          <button type="submit" class="submit-button">Submit</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="hightlight-container">
+    <header>
+      <h1>Ideas by WeWork</h1>
+      <h2>Work trends and insights</h2>
+    </header>
+    <section class="highlight">
+      <img src="../static/images/pexels-pixabay-260931.jpg" alt="Flexible office space">
+      <div class="highlight-content">
+        <h3>Research Studies</h3>
+        <h4>The importance of flexible office spaces</h4>
+        <p>
+          A Cushman & Wakefield survey finds flexible offices are an important
+          component of the workplace ecosystem.
+        </p>
+        <a href="#">Read on →</a>
+      </div>
+    </section>
+    
+    <section class="grid">
+      <article>
+        <img src="../static/images/pexels-paulseling-20390772.jpg" alt="Workspace in Washington D.C.">
+        <h5>Flexible Products</h5>
+        <h4>A cutting-edge workspace near Washington, D.C.</h4>
+      </article>
+      
+      <article>
+        <img src="../static/images/pexels-artempodrez-8519258.jpg" alt="Remote creative agency">
+        <h5>Case Studies</h5>
+        <h4>How one remote creative agency went global, fast</h4>
+      </article>
+      
+      <article>
+        <img src="../static/images/pexels-kindelmedia-7651804.jpg" alt="Founders using WeWork">
+        <h5>Case Studies</h5>
+        <h4>How four founders use WeWork All Access</h4>
+      </article>
+    </section>
+    </div>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-columns">
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">Global Locations</a></li>
+            <li><a href="#">Mission</a></li>
+            <li><a href="#">Inclusion &amp; Diversity</a></li>
+            <li><a href="#">Newsroom</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Trust Center</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Partnerships</h4>
+          <ul>
+            <li><a href="#">Landlords</a></li>
+            <li><a href="#">Refer a Friend</a></li>
+            <li><a href="#">Event Planners</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Member Login</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Tax Forms</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Language</h4>
+          <select>
+            <option>English</option>
+            <option>Spanish</option>
+            <option>French</option>
+          </select>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <p><a href="#">All locations</a></p>
+        <p>(646) 389-3922</p>
+        <p>WeWork Companies LLC<br>71 5th Avenue<br>2nd Floor<br>New York, NY 10003</p>
+      </div>
+      <div class="footer-social">
+        <a href="#"><img src="../static/images/youtube-icon.png" alt="YouTube"></a>
+        <a href="#"><img src="../static/images/facebook-icon.png" alt="Facebook"></a>
+        <a href="#"><img src="../static/images/instagram-icon.png" alt="Instagram"></a>
+        <a href="#"><img src="../static/images/linkedin-icon.png" alt="LinkedIn"></a>
+      </div>
+      <div class="footer-legal">
+        <p>&copy; 2024 WeWork. The WeWork trademark and related logos are the property of WeWork Companies LLC.</p>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Cookies Settings</a></li>
+          <li><a href="#">Accessibility</a></li>
+          <li><a href="#">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Simulate loading rooms data
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelector('.loading').textContent = 'Rooms available now!';
+  }, 3000); // Simulate loading delay
+});
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<h1>Office List</h1>
+<div class="office-container">
+    {% for office in desks %}
+    <div class="office-card">
+        <img src="{{ office.image.url }}" alt="{{ office.company.location }}">
+        <div class="details">
+            <h3>{{ office.company.location}}</h3>
+            <p><strong>Company:</strong> {{ office.company.name }}</p>
+            <p><strong>Date:</strong> {{ office.date }}</p>
+            <p><strong>Time:</strong> {{ office.time }}</p>
+            <p><strong>Cost:</strong> ${{ office.cost }}</p>
+            <p><strong>D:</strong> {{ office.desk }} </p>
+            <div class="actions">
+                <a href="#">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No offices available at the moment.</p>
+    {% endfor %}
+</div>
