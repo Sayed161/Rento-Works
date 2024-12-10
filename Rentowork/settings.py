@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTH_USER_MODEL = 'Account.User'  # Replace 'Account' with your app name if different
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 # Application definition
 
 INSTALLED_APPS = [

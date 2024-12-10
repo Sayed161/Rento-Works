@@ -3,13 +3,21 @@ from django.contrib import messages
 from .forms import CustomerSignupForm, LoginForm
 from django.contrib.auth import login,authenticate
 from .models import User
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
 def signup_view(request):
     if request.method == 'POST':
         form = CustomerSignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            return redirect('home')  
+            backend = 'Account.authentication.EmailBackend'  # or ''
+            user.backend = backend
+            
+            login(request, user, backend=backend)  
+            
+            return redirect('home')
+             
     else:
         form = CustomerSignupForm()
 

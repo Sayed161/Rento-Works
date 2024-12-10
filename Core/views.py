@@ -7,6 +7,7 @@ def home(request):
      approved_role_requests = RoleRequest.objects.filter(status='approved')
      for role_request in approved_role_requests:
         role_request.approve() 
+     print("User",request.user)
      return render(request, 'home.html')
 
 def office(request):
